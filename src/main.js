@@ -14,5 +14,5 @@ Vue.use(VueMagpie, magpieConfig);
 
 // start app
 new Vue({
-  render: h => h(App)
+  render: (h) => h(App)
 }).$mount('#app');

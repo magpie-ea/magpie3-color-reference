@@ -65,7 +65,10 @@
             object which the manager is telling you about once you feel
             confident enough.
           </p>
-          <Chat :data.sync="$magpie.measurements.chat" class="color-chat" />
+          <Chat
+            class="color-chat"
+            @update:data="$magpie.addTrialData($event)"
+          />
           <div
             v-for="colorType in colorsOrder"
             :key="colorType"
