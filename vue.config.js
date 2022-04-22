@@ -15,7 +15,8 @@ module.exports = {
     }
   },
   publicPath:
-    process.env.NODE_ENV === 'production'
-      ? '/' + require('./package.json').name + '/'
+    process.env.NODE_ENV === 'production' &&
+    process.env.GITHUB_ACTION_REPOSITORY
+      ? '/' + process.env.GITHUB_ACTION_REPOSITORY.split('/')[1] + '/'
       : '/'
 };
