@@ -47,13 +47,7 @@
         "
       >
         <Slide>
-          <WaitForParticipants
-            :number="2"
-            @done="
-              initColors();
-              $magpie.nextSlide();
-            "
-          />
+          <WaitForParticipants :number="2" @done="$magpie.nextSlide()" />
           <p>Waiting for participants...</p>
         </Slide>
 
@@ -67,14 +61,25 @@
             object which the manager is telling you about once you feel
             confident enough.
           </p>
+          <Wait v-if="role === 'speaker'" :time="0" @done="initColors()" />
           <Chat class="color-chat" :data.sync="$magpie.measurements.chat" />
-          <div
-            v-for="colorType in colorsOrder"
-            :key="colorType"
-            :class="['color', colorType, role]"
-            :style="{ background: produceCSSColor(colors[colorType]) }"
-            @click="onClickColor(colorType)"
-          />
+          <template v-if="colorsOrder.length">
+            <div
+              v-for="colorType in colorsOrder"
+              :key="colorType"
+              :class="['color', colorType, role]"
+              :style="{ background: produceCSSColor(colors[colorType]) }"
+              @click="onClickColor(colorType)"
+            />
+          </template>
+          <template v-else>
+            <div
+              v-for="i in 3"
+              :key="i"
+              :class="['color', role]"
+              :style="{ background: '#bebebe' }"
+            />
+          </template>
         </Slide>
       </Screen>
     </template>
@@ -85,7 +90,7 @@
 </template>
 
 <script>
-import _ from 'lodash';
+import shuffle from 'lodash/shuffle';
 export default {
   name: 'App',
   data() {
@@ -97,7 +102,7 @@ export default {
   socket: {
     init(colors) {
       this.colors = colors;
-      this.colorsOrder = _.shuffle(Object.keys(colors));
+      this.colorsOrder = shuffle(Object.keys(colors));
     },
     choose(colorType) {
       this.$magpie.addTrialData({
@@ -107,6 +112,7 @@ export default {
         selected_type: colorType,
         selected_color: this.colors[colorType]
       });
+      this.colorsOrder = [];
       this.$magpie.nextScreen();
     }
   },
