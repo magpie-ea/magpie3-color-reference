@@ -99,7 +99,14 @@ export default {
       this.colors = colors;
       this.colorsOrder = _.shuffle(Object.keys(colors));
     },
-    choose() {
+    choose(colorType) {
+      this.$magpie.addTrialData({
+        ...this.colors,
+        ...this.$magpie.measurements.chat,
+        colors_order: this.colorsOrder,
+        selected_type: colorType,
+        selected_color: this.colors[colorType]
+      });
       this.$magpie.nextScreen();
     }
   },
@@ -140,14 +147,7 @@ export default {
         return;
       }
 
-      this.$magpie.addTrialData({
-        ...this.colors,
-        ...this.$magpie.measurements.chat,
-        colors_order: this.colorsOrder,
-        selected_type: colorType,
-        selected_color: this.colors[colorType]
-      });
-      this.$magpie.socket.broadcast('choose');
+      this.$magpie.socket.broadcast('choose', colorType);
     }
   }
 };
