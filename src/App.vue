@@ -110,7 +110,8 @@ export default {
         ...this.$magpie.measurements.chat,
         colors_order: this.colorsOrder,
         selected_type: colorType,
-        selected_color: this.colors[colorType]
+        selected_color: this.colors[colorType],
+        role: this.role
       });
       this.colorsOrder = [];
       this.$magpie.nextScreen();
