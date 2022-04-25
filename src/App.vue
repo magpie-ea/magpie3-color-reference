@@ -3,9 +3,9 @@
     <InstructionScreen :title="'Welcome, nice to see you!'">
       <p>Thank you for participating in our experiment!</p>
       <p>
-        In this study, you will be paired with another participant.
-        You are asked to communicate and identify colors.
-        It will take approximately <strong>3</strong> minutes.
+        In this study, you will be paired with another participant. You are
+        asked to communicate and identify colors. It will take approximately
+        <strong>3</strong> minutes.
       </p>
       <p>Click on the button below to receive instructions.</p>
     </InstructionScreen>
