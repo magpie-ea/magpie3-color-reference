@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = {                                                                                                                                                               7ms 
   configureWebpack: {
     module: {
       rules: [
@@ -14,8 +14,16 @@ module.exports = {
       ]
     }
   },
+  lintOnSave: false,
+  pluginOptions: {
+    lintStyleOnBuild: false,
+    stylelint: {}
+  },
   publicPath:
-    process.env.NODE_ENV === 'production' && process.env.REPO_NAME
-      ? '/' + process.env.REPO_NAME + '/'
-      : '/'
+      process.env.NODE_ENV === 'production' && process.env.REPO_NAME
+          ? '/' +
+          process.env.REPO_NAME +
+          __dirname.substring(process.env.GITHUB_WORKSPACE.length)
+          : '/'
 };
+
